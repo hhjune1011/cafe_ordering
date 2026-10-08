@@ -1,0 +1,359 @@
+/* 전체 화면 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 32px 16px;
+  background: #faf6f0;
+  color: #3f2a1d;
+  font-family: "맑은 고딕", sans-serif;
+}
+
+header,
+main {
+  width: 100%;
+  max-width: 520px;
+  margin-inline: auto;
+}
+
+/* 카페 소개 */
+header {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+header div {
+  display: inline-block;
+  font-size: 64px;
+  line-height: 1;
+  transform-origin: bottom center;
+  animation: logo-sway 3s ease-in-out infinite;
+}
+
+/* 카페 로고 흔들림 */
+@keyframes logo-sway {
+  0%, 100% {
+    transform: rotate(-5deg);
+  }
+
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+h1 {
+  margin: 12px 0 6px;
+  color: #6b4226;
+}
+
+header p {
+  margin: 0;
+  color: #805c43;
+}
+
+/* 주문하기와 주문 내역 탭 */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+  border-bottom: 1px solid #e3d5ca;
+}
+
+.tab-button {
+  width: auto;
+  padding: 10px 4px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: #b4947d;
+}
+
+.tab-button:hover {
+  color: #6b4226;
+  box-shadow: none;
+  transform: none;
+}
+
+.tab-button[aria-selected="true"] {
+  border-bottom-color: #6b4226;
+  color: #6b4226;
+}
+
+#order-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #6b4226;
+  color: #fff;
+  font-size: 12px;
+}
+
+/* 탭 내용 카드 */
+main {
+  padding: 28px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(107, 66, 38, 0.14);
+}
+
+form {
+  display: grid;
+  gap: 20px;
+}
+
+form > div > label,
+legend {
+  display: block;
+  margin-bottom: 8px;
+  color: #6b4226;
+  font-weight: 700;
+}
+
+/* 입력 요소 */
+input:not([type="radio"]):not([type="checkbox"]),
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d8c6b8;
+  border-radius: 8px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+
+textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #6b4226;
+  box-shadow: 0 0 0 3px rgba(107, 66, 38, 0.16);
+}
+
+/* 사이즈와 추가 옵션 */
+fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid #e3d5ca;
+  border-radius: 12px;
+}
+
+fieldset label {
+  margin-right: 12px;
+  white-space: nowrap;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  accent-color: #6b4226;
+}
+
+/* 금액과 버튼 */
+#estimated-price {
+  margin: 4px 0;
+  color: #6b4226;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+}
+
+button {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #6b4226;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(107, 66, 38, 0.22);
+}
+
+/* 저장 중인 버튼은 잠시 클릭할 수 없습니다. */
+button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+button[type="submit"] {
+  background: #6b4226;
+  color: #fff;
+}
+
+button[type="submit"]:hover {
+  background: #835638;
+}
+
+button[type="reset"] {
+  background: #fff;
+  color: #6b4226;
+}
+
+button[type="reset"]:hover {
+  background: #f4ebe3;
+}
+
+/* 주문 내역 */
+#history-panel h2 {
+  margin: 0 0 20px;
+  color: #6b4226;
+  text-align: center;
+}
+
+#empty-orders {
+  margin: 32px 0;
+  color: #a07d64;
+  text-align: center;
+}
+
+#order-list {
+  display: grid;
+  gap: 14px;
+}
+
+.order-card {
+  position: relative;
+  padding: 16px 72px 16px 18px;
+  border-left: 5px solid #6b4226;
+  border-radius: 10px;
+  background: #faf6f0;
+}
+
+.order-card p {
+  margin: 6px 0 0;
+  line-height: 1.5;
+}
+
+.order-card .order-meta {
+  color: #8a6b55;
+  font-size: 14px;
+}
+
+.cancel-order {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: auto;
+  padding: 6px 10px;
+  background: #fff;
+  color: #6b4226;
+  font-size: 13px;
+}
+
+#order-summary {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #e3d5ca;
+  text-align: center;
+}
+
+#order-total {
+  color: #6b4226;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+#clear-orders {
+  background: #fff;
+  color: #6b4226;
+}
+
+/* 주문 확인 메시지 */
+#order-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1000;
+  width: calc(100% - 32px);
+  max-width: 460px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #e8f5d0;
+  color: #347223;
+  box-shadow: 0 12px 32px rgba(52, 114, 35, 0.25);
+  font-weight: 700;
+  text-align: center;
+  pointer-events: none;
+  animation: order-popup 2s ease forwards;
+}
+
+/* 주문 알림이 나타났다가 사라지는 모션 */
+@keyframes order-popup {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -45%) scale(0.92);
+  }
+
+  15%, 80% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -55%) scale(0.96);
+  }
+}
+
+[hidden],
+.hidden {
+  display: none !important;
+}
+
+/* 휴대폰 화면 */
+@media (max-width: 560px) {
+  body {
+    padding: 20px 12px;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  header div {
+    font-size: 52px;
+  }
+
+  .tabs {
+    gap: 12px;
+  }
+
+  .tab-button {
+    font-size: 14px;
+  }
+
+  .order-card {
+    padding-right: 68px;
+  }
+}
+
+/* 모션 감소 설정 존중 */
+@media (prefers-reduced-motion: reduce) {
+  header div,
+  #order-message {
+    animation: none;
+  }
+}
