@@ -202,7 +202,17 @@ orderForm.addEventListener("submit", async (event) => {
     if (error) throw error;
   } catch (error) {
     console.error("주문 저장 오류:", error);
-    alert("주문 저장에 실패했어요");
+    // alert는 확인을 누를 때까지 실행을 멈추므로 버튼부터 원래대로 되돌립니다.
+    submitButton.disabled = false;
+    submitButton.textContent = originalButtonText;
+    // 오류 코드별 안내를 붙이면 어떤 설정을 고쳐야 하는지 알 수 있습니다.
+    let reason = error.message || "네트워크 연결을 확인해주세요.";
+    if (error.code === "42703" || error.code === "PGRST204") {
+      reason = "DB에 필요한 열이 없습니다. Supabase SQL Editor에서 supabase-order-insert.sql을 실행해주세요.";
+    } else if (error.code === "42501") {
+      reason = "주문 저장 권한이 없습니다. supabase-order-insert.sql의 주문 접수 정책을 적용해주세요.";
+    }
+    alert(`주문 저장에 실패했어요\n${reason}`);
     return;
   } finally {
     // 성공 여부와 관계없이 버튼을 원래 상태로 되돌립니다.

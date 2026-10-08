@@ -65,9 +65,16 @@ vm.runInContext(fs.readFileSync(require('node:path').join(__dirname, 'script.js'
   const second = form.submit({ preventDefault() {} });
   respond({ error: { message: '테스트 오류' } });
   await second;
-  assert.equal(alerts[0], '주문 저장에 실패했어요');
+  assert.equal(alerts[0], '주문 저장에 실패했어요\n테스트 오류');
   assert.equal(vm.runInContext('orders.length', context), 1);
   assert.equal(button.disabled, false);
   assert.equal(button.textContent, '주문하기');
+  // 실제 확인된 열 누락 오류가 발생하면 수정 SQL을 안내해야 합니다.
+  const missingColumn = form.submit({ preventDefault() {} });
+  respond({ error: { code: '42703', message: 'column orders.phone does not exist' } });
+  await missingColumn;
+  assert.match(alerts[1], /supabase-order-insert\.sql/);
+  assert.equal(vm.runInContext('orders.length', context), 1);
+  assert.equal(button.disabled, false);
   console.log('PASS: 주문 데이터, 중복 방지, 성공/실패 처리, 버튼 복구');
 })().catch((error) => { console.error(error); process.exitCode = 1; });

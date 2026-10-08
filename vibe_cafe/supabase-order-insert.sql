@@ -37,4 +37,7 @@ drop policy if exists cafe_anon_insert on public.orders;
 create policy cafe_anon_insert on public.orders
   for insert to anon with check (true);
 
+-- 변경된 열 이름을 REST API가 바로 인식하도록 스키마 캐시를 새로고침합니다.
+notify pgrst, 'reload schema';
+
 commit;
